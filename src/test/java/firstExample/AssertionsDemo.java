@@ -2,8 +2,7 @@ package firstExample;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsDemo {
     private final Calculator calculator = new Calculator();
@@ -17,5 +16,12 @@ public class AssertionsDemo {
         assertTrue('a' < 'b', () -> "Assertion messages can be " +
                 "lazily evaluated --" +
                 "to avoid constructing complex messages unnecessarily.");
+    }
+
+    @Test
+    void groupedAssertions() {
+        assertAll("person",
+                () -> assertEquals("Vladimir", person.getFirstName()),
+                () -> assertEquals("Glinskikh", person.getLastName()));
     }
 }
