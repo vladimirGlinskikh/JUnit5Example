@@ -24,4 +24,27 @@ public class AssertionsDemo {
                 () -> assertEquals("Vladimir", person.getFirstName()),
                 () -> assertEquals("Glinskikh", person.getLastName()));
     }
+
+    @Test
+    void dependentAssertions() {
+        assertAll("properties",
+                () -> {
+                    String firstName = person.getFirstName();
+                    assertNotNull(firstName);
+
+                    assertAll("first name",
+                            () -> assertTrue(firstName.startsWith("V")),
+                            () -> assertTrue(firstName.endsWith("r")));
+                },
+                () -> {
+                    String lastName = person.getLastName();
+                    assertNotNull(lastName);
+
+                    assertAll("last name",
+                            () -> assertTrue(lastName.startsWith("G")),
+                            () -> assertTrue(lastName.endsWith("h")));
+                });
+    }
+
+
 }
